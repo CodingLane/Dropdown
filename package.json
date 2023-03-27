@@ -22,8 +22,12 @@
     ],
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/CodingLane/dropdown"
+        "url": "git+https://github.com/CodingLane/dropdown.git"
     },
+    "bugs": {
+        "url": "https://github.com/CodingLane/dropdown/issues"
+    },
+    "homepage": "https://github.com/CodingLane/dropdown#readme",
     "dependencies": {
         "@testing-library/jest-dom": "^5.16.5",
         "@testing-library/react": "^13.4.0",
@@ -42,7 +46,7 @@
     "scripts": {
         "start": "react-scripts start",
         "test": "react-scripts test",
-        "build": "react-scripts build",
+        "build": "tsc",
         "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
         "lint": "tslint -p tsconfig.json",
         "prepare": "npm run build",
