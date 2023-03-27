@@ -9,16 +9,15 @@
         "src/components/**/*"
     ],
     "keywords": [
-        "query",
-        "builder",
-        "querybuilder",
-        "query builder",
-        "query-builder",
-        "react",
-        "lightweight",
-        "react-query-builder",
-        "react-querybuilder",
-        "codinglane"
+        "dropdown",
+        "select",
+        "favorites",
+        "stars",
+        "selection",
+        "grouping",
+        "input select",
+        "input dropdown",
+        "input"
     ],
     "repository": {
         "type": "git",
