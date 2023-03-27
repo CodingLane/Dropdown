@@ -9,6 +9,7 @@ interface DropdownProps<T extends string> {
     current: T;
     onChange: (field: T) => void;
     onBlur?: () => void;
+    onFocus?: () => void;
     onFavorizeOption?: (option: Contracts.DropdownOptions) => void;
     searchable?: boolean;
     maxLength?: number;
@@ -22,6 +23,7 @@ interface DropdownProps<T extends string> {
     favorites?: string[];
     fields: Contracts.DropdownOptions[] | Contracts.GroupedDropdownOptions[];
     placeholder?: string;
+    'data-testid'?: string;
 }
 
 export const Dropdown = <T extends string>({
@@ -30,12 +32,14 @@ export const Dropdown = <T extends string>({
     current,
     onChange,
     onBlur,
+    onFocus,
     searchable = false,
     className,
     closeOnSelect,
     favorites,
     onFavorizeOption,
     placeholder,
+    ...props
 }: DropdownProps<T>) => {
     const dropdown = React.useRef<HTMLDivElement>();
     const setDropdown = (ref: HTMLDivElement) => (dropdown.current = ref);
@@ -62,6 +66,11 @@ export const Dropdown = <T extends string>({
         setActive(false);
     };
 
+    React.useEffect(() => {
+        if (active && onFocus) onFocus();
+        if (!active && onBlur) onBlur();
+    }, [active]);
+
     const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => setSearch(event.currentTarget.value);
 
     const toggle = () => setActive((prev) => !prev);
@@ -70,7 +79,6 @@ export const Dropdown = <T extends string>({
         event.persist();
         if (event.key.toLowerCase() !== 'enter') return;
         if (search === null) return;
-        console.log('enter search', currentVisibleOptions);
         if (currentVisibleOptions.length > 0) onChange(currentVisibleOptions[0] as T);
         setSearch(null);
         toggle();
@@ -108,7 +116,7 @@ export const Dropdown = <T extends string>({
     }, [text.current, textContainer.current, current]);
 
     return (
-        <div className={`dropdown ${active ? 'active' : ''} ${className ?? ''}`} ref={setDropdown}>
+        <div className={`dropdown ${active ? 'active' : ''} ${className ?? ''}`} ref={setDropdown} {...props}>
             <div className='customBase dropdown-search'>
                 <div
                     className={'dropdown-text'.concat(!searchable ? ' dropdown-readonly' : '')}
