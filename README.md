@@ -84,7 +84,7 @@ so I decided to create my own, easy to use dropdown component for react.
 
 ### Built With
 
-[![React][React.js]][React-url].
+[![React][React.js]][React-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
