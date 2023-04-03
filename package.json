@@ -4,7 +4,7 @@
     "license": "MIT",
     "description": "An easy-to-use react dropdown",
     "author": "Coding Lane",
-    "main": "src/index.ts",
+    "main": "src/export.ts",
     "files": [
         "src/components/**/*"
     ],
@@ -26,7 +26,6 @@
     "bugs": {
         "url": "https://github.com/CodingLane/dropdown/issues"
     },
-    "homepage": "https://github.com/CodingLane/dropdown#readme",
     "dependencies": {
         "@testing-library/jest-dom": "^5.16.5",
         "@testing-library/react": "^13.4.0",
@@ -43,7 +42,7 @@
         "web-vitals": "^2.1.4"
     },
     "scripts": {
-        "start": "react-scripts start",
+        "start": "react-scripts start ./src/index.tsx",
         "test": "react-scripts test",
         "build": "tsc",
         "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",

@@ -6,7 +6,7 @@ import * as Components from 'components';
 import * as Contracts from 'contracts';
 
 interface DropdownProps<T extends string> {
-    current: T;
+    value: T;
     onChange: (field: T) => void;
     onBlur?: () => void;
     onFocus?: () => void;
@@ -29,7 +29,7 @@ interface DropdownProps<T extends string> {
 export const Dropdown = <T extends string>({
     id,
     fields,
-    current,
+    value,
     onChange,
     onBlur,
     onFocus,
@@ -58,6 +58,7 @@ export const Dropdown = <T extends string>({
     const [top, setTop] = React.useState<number>();
     const [active, setActive] = React.useState(false);
     const [search, setSearch] = React.useState<string | null>(null);
+    const field = React.useMemo(() => fields.find((field) => field.value === value)?.label, [value]);
 
     const handleOptionClick = (option?: string) => {
         onChange(option as T);
@@ -113,7 +114,7 @@ export const Dropdown = <T extends string>({
         if (!textContainer.current || !text.current || !input.current) return;
         textContainer.current.style.width = `${text.current.clientWidth + 17.5}px`;
         input.current.style.width = `${text.current.clientWidth - 4.5}px`;
-    }, [text.current, textContainer.current, current]);
+    }, [text.current, textContainer.current, value]);
 
     return (
         <div className={`dropdown ${active ? 'active' : ''} ${className ?? ''}`} ref={setDropdown} {...props}>
@@ -125,7 +126,7 @@ export const Dropdown = <T extends string>({
                 >
                     {!search && (
                         <div className='dropdown-searchtext' ref={setText}>
-                            {current ?? placeholder}
+                            {field ?? placeholder}
                         </div>
                     )}
                     <Components.BaseInput
@@ -149,7 +150,7 @@ export const Dropdown = <T extends string>({
                     onOptionClick={handleOptionClick}
                     onFilteredChange={setCurrentVisibleOptions}
                     options={fields as Contracts.GroupedDropdownOptions[]}
-                    current={current}
+                    current={value}
                     top={top}
                     ref={setMenu}
                     filter={search}
@@ -161,7 +162,7 @@ export const Dropdown = <T extends string>({
                     id={id}
                     onOptionClick={handleOptionClick}
                     options={fields}
-                    current={current}
+                    current={value}
                     filter={search}
                     top={top}
                     ref={setMenu}

@@ -26,7 +26,7 @@ describe('Dropdown', () => {
 
     test('should render', async () => {
         Environment.render(
-            <SUT.Dropdown current={FIELD_ONE} fields={fields} onChange={onChangeMock} onBlur={onBlurMock} />,
+            <SUT.Dropdown value={FIELD_ONE} fields={fields} onChange={onChangeMock} onBlur={onBlurMock} />,
         );
 
         const element = await Environment.screen.findAllByText(FIELD_ONE);
@@ -36,7 +36,7 @@ describe('Dropdown', () => {
     test('should have closed options on render', async () => {
         Environment.render(
             <SUT.Dropdown
-                current={FIELD_ONE}
+                value={FIELD_ONE}
                 fields={fields}
                 onChange={onChangeMock}
                 onBlur={onBlurMock}
@@ -50,7 +50,7 @@ describe('Dropdown', () => {
 
     test('should have open options on click on select', async () => {
         Environment.render(
-            <SUT.Dropdown current={FIELD_ONE} fields={fields} onChange={onChangeMock} onBlur={onBlurMock} />,
+            <SUT.Dropdown value={FIELD_ONE} fields={fields} onChange={onChangeMock} onBlur={onBlurMock} />,
         );
 
         const select = await Environment.screen.findAllByText(FIELD_ONE);
@@ -61,7 +61,7 @@ describe('Dropdown', () => {
 
     test('should close on option select', async () => {
         Environment.render(
-            <SUT.Dropdown current={FIELD_ONE} fields={fields} onChange={onChangeMock} onBlur={onBlurMock} />,
+            <SUT.Dropdown value={FIELD_ONE} fields={fields} onChange={onChangeMock} onBlur={onBlurMock} />,
         );
 
         const select = await Environment.screen.findAllByText(FIELD_ONE);
@@ -73,7 +73,7 @@ describe('Dropdown', () => {
 
     test('should call onChange', async () => {
         Environment.render(
-            <SUT.Dropdown current={FIELD_ONE} fields={fields} onChange={onChangeMock} onBlur={onBlurMock} />,
+            <SUT.Dropdown value={FIELD_ONE} fields={fields} onChange={onChangeMock} onBlur={onBlurMock} />,
         );
 
         const select = await Environment.screen.findAllByText(FIELD_ONE);
@@ -85,7 +85,7 @@ describe('Dropdown', () => {
 
     test('should call on blur', async () => {
         Environment.render(
-            <SUT.Dropdown current={FIELD_ONE} fields={fields} onChange={onChangeMock} onBlur={onBlurMock} />,
+            <SUT.Dropdown value={FIELD_ONE} fields={fields} onChange={onChangeMock} onBlur={onBlurMock} />,
         );
 
         const select = await Environment.screen.findAllByText(FIELD_ONE);
@@ -98,7 +98,7 @@ describe('Dropdown', () => {
 
     test('should call on focus', async () => {
         Environment.render(
-            <SUT.Dropdown current={FIELD_ONE} fields={fields} onChange={onChangeMock} onFocus={onFocusMock} />,
+            <SUT.Dropdown value={FIELD_ONE} fields={fields} onChange={onChangeMock} onFocus={onFocusMock} />,
         );
 
         const select = await Environment.screen.findAllByText(FIELD_ONE);
