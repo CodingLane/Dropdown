@@ -84,7 +84,7 @@ so I decided to create my own, easy to use dropdown component for react.
 
 ### Built With
 
-The Project is build with [![React][React.js]][React-url].
+-   [![React][React.js]][React-url].
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -107,17 +107,17 @@ All you have to do to use the package is to install it.
 
 There are many use cases possible.
 
-If you want to see the different use cases, run
-`sh
-    npm start
-    `
-inside the dropdown package.
+If you want to see the different use cases, run `npm start` inside the dropdown package.
 
 _For further information, go to the [Properties](#properties) section_
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- ROADMAP -->
+
+## Properties
+
+Props
 
 ## Roadmap
 
