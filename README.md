@@ -123,7 +123,7 @@ _For further information, go to the [Properties](#properties) section_
 
 ## Types
 
-# DropdownOptions
+### DropdownOptions
 
 | PropertyName | PropertyType |
 | ------------ | ------------ |
@@ -131,7 +131,7 @@ _For further information, go to the [Properties](#properties) section_
 | `label`      | `string`     |
 | `favorite`   | `boolean`    |
 
-# GroupedDropdownOptions
+### GroupedDropdownOptions
 
 | PropertyName | PropertyType |
 | ------------ | ------------ |
@@ -140,7 +140,7 @@ _For further information, go to the [Properties](#properties) section_
 | `favorite`   | `boolean`    |
 | `group`      | `string`     |
 
-# FavoriteLabels
+### FavoriteLabels
 
 | PropertyName  | PropertyType |
 | ------------- | ------------ |
