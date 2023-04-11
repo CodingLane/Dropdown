@@ -8,10 +8,10 @@ export interface OptionProps {
     option: Contracts.DropdownOption;
     className?: string;
     onClick: (option: string) => void;
-    icon?: JSX.Element;
     favorites?: boolean;
     isFavorite?: boolean;
     onFavorize?: (option: Contracts.DropdownOption) => void;
+    'data-testid'?: string;
 }
 
 export const Option = ({
@@ -23,6 +23,7 @@ export const Option = ({
     isFavorite,
     onFavorize,
     onClick,
+    ...props
 }: OptionProps) => {
     const ident = React.useMemo(() => id?.concat('option').concat(option.value), [id, option]);
 
@@ -51,9 +52,10 @@ export const Option = ({
                     size={18}
                     className='dropdown-option-favorite'
                     onClick={favorize}
+                    {...props}
                 />
             )}
-            <div className={styling} id={ident}>
+            <div className={styling} id={ident} {...props}>
                 {option.label}
             </div>
         </div>
