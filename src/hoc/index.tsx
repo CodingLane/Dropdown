@@ -6,39 +6,114 @@ import * as Components from 'components';
 import * as Contracts from 'contracts';
 
 interface DropdownProps<T extends string> {
-    value: T;
+    /**
+     * The current id of the dropdown.
+     */
+    id?: string;
+    /**
+     * The current chosen value for the dropdown, typeof string.
+     * The value is not getting managed inside the component. You have to provide a function to manage the current chosen value.
+     * @see onChange
+     */
+    value?: T;
+    /**
+     * Set this value to true, if you want to have a dropdown with an input field to search for an specific option.
+     * Default is false.
+     */
+    searchable?: boolean;
+    /**
+     * Set the classname of the dropdown, if you want to set your custom style.
+     */
+    className?: string;
+    /**
+     * Set this value to true, if you want that the options of the dropdown are getting closed as soon as you choose an option.
+     */
+    closeOnSelect?: boolean;
+    /**
+     * Set this to a string array of your field values, to have grouped options by favorites.
+     * Set it to an empty array, if you want to have the functionality but do not have any favorites at the moment.
+     * The favorites are getting managed outside this component. You have to provide a function to manage your favroites.
+     * @see onFavorizeOption
+     */
+    favorites?: string[];
+    /**
+     * These are the possible options for the dropdown. If you want to have grouped dropdown options, set the type of your fields to GroupedDropdownOptions
+     * and set the group tag for all of the fields.
+     * @type DropdownOptions[] | GroupedDropdownOptions[]
+     */
+    fields: Contracts.DropdownOptions[] | Contracts.GroupedDropdownOptions[];
+    /**
+     * The placeholder for the dropdown. When the placeholder is set and the value is undefined or not assignable to a field, the placeholder is getting showed.
+     */
+    placeholder?: string;
+    /**
+     * This is the function to manage the current chosen value for the dropdown.
+     * @param field
+     * The field the user clicked on.
+     * @type {T} - extends string
+     * @returns
+     */
     onChange: (field: T) => void;
     onBlur?: () => void;
     onFocus?: () => void;
+    /**
+     * The on favorize option is getting called as soon as the favorize icon in the option menu is getting clicked.
+     * This dropdown do not manage the favorites on its own. You have to manage the favorites, to see changes in the component.
+     */
     onFavorizeOption?: (option: Contracts.DropdownOptions) => void;
-    searchable?: boolean;
-    maxLength?: number;
-    max?: number;
-    minLength?: number;
-    min?: number;
-    regex?: RegExp;
-    id?: string;
-    className?: string;
-    closeOnSelect?: boolean;
-    favorites?: string[];
-    fields: Contracts.DropdownOptions[] | Contracts.GroupedDropdownOptions[];
-    placeholder?: string;
+    /**
+     * For testing purpose.
+     */
     'data-testid'?: string;
 }
 
+/**
+ * @param id
+ * The current id of the dropdown.
+ * @param value
+ * The current chosen value for the dropdown, typeof string.
+ * The value is not getting managed inside the component. You have to provide a function to manage the current chosen value.
+ * @param searchable
+ * Set this value to true, if you want to have a dropdown with an input field to search for a specific option
+ * @param className
+ * Set the classname of the dropdown, if you want to set your custom style.
+ * @param closeOnSelect
+ * Set this value to true, if you want that the options of the dropdown are getting closed as soon as you choose an option.
+ * @param favorites
+ * Set this to a string array of your field values, to have grouped options by favorites.
+ * Set it to an empty array, if you want to have the functionality but do not have any favorites at the moment.
+ * The favorites are getting managed outside this component. You have to provide a function to manage your favroites.
+ * @param fields
+ * These are the possible options for the dropdown. If you want to have grouped dropdown options, set the type of your fields to GroupedDropdownOptions
+ * and set the group tag for all of the fields.
+ * @param placeholder
+ * The placeholder for the dropdown. When the placeholder is set and the value is undefined or not assignable to a field, the placeholder is getting showed.
+ * @param onChange
+ * This is the function to manage the current chosen value for the dropdown.
+ * @param onFocus
+ * This function is getting called on focus of the options menu.
+ * @param onBlur
+ * This function is getting called on blur of the options menu.
+ * @param onFavorizeOption
+ * The on favorize option is getting called as soon as the favorize icon in the option menu is getting clicked.
+ * This dropdown do not manage the favorites on its own. You have to manage the favorites, to see changes in the component.
+ * @param data-testid
+ * For testing purpose.
+ * @returns {JSX.Element}
+ */
 export const Dropdown = <T extends string>({
     id,
     fields,
     value,
+    searchable = false,
+    className,
+    closeOnSelect = false,
+    favorites,
+    placeholder,
     onChange,
     onBlur,
     onFocus,
-    searchable = false,
-    className,
-    closeOnSelect,
-    favorites,
     onFavorizeOption,
-    placeholder,
     ...props
 }: DropdownProps<T>) => {
     const dropdown = React.useRef<HTMLDivElement>();
