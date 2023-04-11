@@ -68,6 +68,10 @@ interface DropdownProps<T extends string> {
      */
     onFavorizeOption?: (option: Contracts.DropdownOptions) => void;
     /**
+     * The labels for the favorite and non favorite group.
+     */
+    favoriteLabels?: Contracts.FavoriteLabels;
+    /**
      * For testing purpose.
      */
     'data-testid'?: string;
@@ -103,6 +107,8 @@ interface DropdownProps<T extends string> {
  * @param onFavorizeOption
  * The on favorize option is getting called as soon as the favorize icon in the option menu is getting clicked.
  * This dropdown do not manage the favorites on its own. You have to manage the favorites, to see changes in the component.
+ * @param favoriteLabels
+ * The labels for the favorite and non favorite group.
  * @param data-testid
  * For testing purpose.
  * @returns {JSX.Element}

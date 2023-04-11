@@ -118,19 +118,28 @@ _For further information, go to the [Properties](#properties) section_
 | `onBlur`           | `Function`                                              | `undefined` | This function is getting called on blur of the options menu.                                                                                                                                                                                                                                                         |
 | `onFocus`          | `Function`                                              | `undefined` | This function is getting called on focus of the options menu.                                                                                                                                                                                                                                                        |
 | `onFavorizeOption` | `Function`                                              | `undefined` | The onFavorizeOption is getting called as soon as the favorize icon in the option menu is getting clicked for an option. This dropdown do not manage the favorites on its own. You have to manage the favorizes to see changes in the component.                                                                     |
+| `favoriteLabels`   | `FavoriteLabels`                                        | `undefined` | The labels for the favorite and non favorite group.                                                                                                                                                                                                                                                                  |
 | `data-testid`      | `string`                                                | `undefined` | For testing purpose.                                                                                                                                                                                                                                                                                                 |
 
 ## Types
 
+| Type              | PropertyName | PropertyType |
+| ----------------- | ------------ | ------------ |
+| `DropdownOptions` | `value`      | `string`     |
+|                   | `label`      | `string`     |
+|                   | `favorite`   | `boolean`    |
+
 | Type                     | PropertyName | PropertyType |
 | ------------------------ | ------------ | ------------ |
-| `DropdownOptions`        | `value`      | `string`     |
-|                          | `label`      | `string`     |
-|                          | `favorite`   | `boolean`    |
 | `GroupedDropdownOptions` | `value`      | `string`     |
 |                          | `label`      | `string`     |
 |                          | `favorite`   | `boolean`    |
 |                          | `group`      | `string`     |
+
+| Type             | PropertyName  | PropertyType |
+| ---------------- | ------------- | ------------ |
+| `FavoriteLabels` | `favorite`    | `string`     |
+|                  | `nonFavorite` | `string`     |
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
