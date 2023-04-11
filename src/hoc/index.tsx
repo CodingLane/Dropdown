@@ -54,7 +54,13 @@ interface DropdownProps<T extends string> {
      * @returns
      */
     onChange: (field: T) => void;
+    /**
+     * This function is getting called on blur of the options menu.
+     */
     onBlur?: () => void;
+    /**
+     * This function is getting called on focus of the options menu.
+     */
     onFocus?: () => void;
     /**
      * The on favorize option is getting called as soon as the favorize icon in the option menu is getting clicked.
