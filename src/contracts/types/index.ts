@@ -1,10 +1,10 @@
-export interface DropdownOptions {
+export interface DropdownOption {
     value: string;
     label: string;
     favorite?: boolean;
 }
 
-export interface GroupedDropdownOptions extends DropdownOptions {
+export interface GroupedDropdownOption extends DropdownOption {
     group: string;
 }
 
@@ -15,7 +15,7 @@ interface BaseOptionGroup {
 }
 
 export interface OptionChildGroup extends BaseOptionGroup {
-    options: DropdownOptions[];
+    options: DropdownOption[];
     isParent: false;
 }
 
@@ -29,4 +29,11 @@ export type OptionGroup = OptionChildGroup | OptionParentGroup;
 export interface FavoriteLabels {
     favorite?: string;
     nonFavorite?: string;
+}
+
+export interface DropdownStyleSheet {
+    backgroundColor?: string;
+    color?: string;
+    fontSize?: string;
+    fontFamily?: string;
 }

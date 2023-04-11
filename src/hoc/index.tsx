@@ -30,18 +30,11 @@ interface DropdownProps<T extends string> {
      */
     closeOnSelect?: boolean;
     /**
-     * Set this to a string array of your field values, to have grouped options by favorites.
-     * Set it to an empty array, if you want to have the functionality but do not have any favorites at the moment.
-     * The favorites are getting managed outside this component. You have to provide a function to manage your favroites.
-     * @see onFavorizeOption
-     */
-    favorites?: string[];
-    /**
      * These are the possible options for the dropdown. If you want to have grouped dropdown options, set the type of your fields to GroupedDropdownOptions
      * and set the group tag for all of the fields.
      * @type DropdownOptions[] | GroupedDropdownOptions[]
      */
-    fields: Contracts.DropdownOptions[] | Contracts.GroupedDropdownOptions[];
+    fields: Contracts.DropdownOption[] | Contracts.GroupedDropdownOption[];
     /**
      * The placeholder for the dropdown. When the placeholder is set and the value is undefined or not assignable to a field, the placeholder is getting showed.
      */
@@ -66,11 +59,15 @@ interface DropdownProps<T extends string> {
      * The on favorize option is getting called as soon as the favorize icon in the option menu is getting clicked.
      * This dropdown do not manage the favorites on its own. You have to manage the favorites, to see changes in the component.
      */
-    onFavorizeOption?: (option: Contracts.DropdownOptions) => void;
+    onFavorizeOption?: (option: Contracts.DropdownOption) => void;
     /**
      * The labels for the favorite and non favorite group.
      */
     favoriteLabels?: Contracts.FavoriteLabels;
+    /**
+     * Custom stylesheet for the dropdown. It is possible to set the bg color, the color (for text & border), the font size and the font family.
+     */
+    style?: Contracts.DropdownStyleSheet;
     /**
      * For testing purpose.
      */
@@ -89,10 +86,6 @@ interface DropdownProps<T extends string> {
  * Set the classname of the dropdown, if you want to set your custom style.
  * @param closeOnSelect
  * Set this value to true, if you want that the options of the dropdown are getting closed as soon as you choose an option.
- * @param favorites
- * Set this to a string array of your field values, to have grouped options by favorites.
- * Set it to an empty array, if you want to have the functionality but do not have any favorites at the moment.
- * The favorites are getting managed outside this component. You have to provide a function to manage your favroites.
  * @param fields
  * These are the possible options for the dropdown. If you want to have grouped dropdown options, set the type of your fields to GroupedDropdownOptions
  * and set the group tag for all of the fields.
@@ -109,6 +102,8 @@ interface DropdownProps<T extends string> {
  * This dropdown do not manage the favorites on its own. You have to manage the favorites, to see changes in the component.
  * @param favoriteLabels
  * The labels for the favorite and non favorite group.
+ * @param style
+ * Custom stylesheet for the dropdown. It is possible to set the bg color, the color (for text & border), the font size and the font family.
  * @param data-testid
  * For testing purpose.
  * @returns {JSX.Element}
@@ -120,12 +115,12 @@ export const Dropdown = <T extends string>({
     searchable = false,
     className,
     closeOnSelect = false,
-    favorites,
     placeholder,
     onChange,
     onBlur,
     onFocus,
     onFavorizeOption,
+    style,
     ...props
 }: DropdownProps<T>) => {
     const dropdown = React.useRef<HTMLDivElement>();
@@ -140,7 +135,8 @@ export const Dropdown = <T extends string>({
     const setText = (ref: HTMLDivElement) => (text.current = ref);
 
     const [currentVisibleOptions, setCurrentVisibleOptions] = React.useState<string[]>([]);
-    const grouped = fields.some((field) => (field as Contracts.GroupedDropdownOptions).group !== undefined);
+    const grouped = fields.some((field) => (field as Contracts.GroupedDropdownOption).group !== undefined);
+    const favorize = fields.some((field) => field.favorite !== undefined);
 
     const [top, setTop] = React.useState<number>();
     const [active, setActive] = React.useState(false);
@@ -153,6 +149,10 @@ export const Dropdown = <T extends string>({
         if (!closeOnSelect) return;
         setActive(false);
     };
+
+    React.useEffect(() => {
+        Contracts.setStyleSheet(style);
+    }, [style]);
 
     React.useEffect(() => {
         if (active && onFocus) onFocus();
@@ -212,7 +212,10 @@ export const Dropdown = <T extends string>({
                     ref={setTextContainer}
                 >
                     {!search && (
-                        <div className='dropdown-searchtext' ref={setText}>
+                        <div
+                            className={`dropdown-searchtext ${field === undefined ? 'dropdown-placeholder' : ''}`}
+                            ref={setText}
+                        >
                             {field ?? placeholder}
                         </div>
                     )}
@@ -231,18 +234,19 @@ export const Dropdown = <T extends string>({
                 </div>
                 <Icons.ChevronDown size={16} className='dropdown-searchicon' onClick={toggle} />
             </div>
-            {grouped ? (
+            {grouped || favorize ? (
                 <Components.Grouped
                     id={id}
                     onOptionClick={handleOptionClick}
                     onFilteredChange={setCurrentVisibleOptions}
-                    options={fields as Contracts.GroupedDropdownOptions[]}
+                    options={fields as Contracts.GroupedDropdownOption[]}
                     current={value}
                     top={top}
                     ref={setMenu}
                     filter={search}
                     onFavorize={onFavorizeOption}
-                    favorites={favorites}
+                    grouping={grouped}
+                    favorize={favorize}
                 />
             ) : (
                 <Components.Standard

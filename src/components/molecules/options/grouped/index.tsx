@@ -7,16 +7,17 @@ const DEFAULT_NON_FAVORITE = 'Standard';
 
 export interface GroupedProps<T extends string> {
     id?: string;
-    options: Contracts.GroupedDropdownOptions[];
+    options: Contracts.GroupedDropdownOption[];
     top?: number;
     onOptionClick: (option?: string) => void;
     filter?: string | null;
     onFilteredChange: (options: string[]) => void;
-    onFavorize?: (option: Contracts.DropdownOptions) => void;
+    onFavorize?: (option: Contracts.DropdownOption) => void;
     current?: T;
     favoriteGroupName?: string;
     nonFavoriteGroupName?: string;
-    favorites?: string[];
+    grouping?: boolean;
+    favorize?: boolean;
 }
 
 export const Grouped = React.forwardRef(
@@ -30,35 +31,38 @@ export const Grouped = React.forwardRef(
             current,
             filter,
             onFavorize,
-            favorites,
             favoriteGroupName,
             nonFavoriteGroupName,
+            grouping,
+            favorize,
         }: GroupedProps<T>,
         ref: React.ForwardedRef<HTMLDivElement>,
     ) => {
-        const favorize = favorites !== undefined;
+        const favorites = options.filter((opt) => opt.favorite).length;
         const favoritesName = favoriteGroupName ?? DEFAULT_FAVORITE;
         const nonFavoritesName = nonFavoriteGroupName ?? DEFAULT_NON_FAVORITE;
 
-        const grouped = React.useMemo(
-            () =>
-                favorize
-                    ? Contracts.mapToGroupsWithFavorites(
-                          options,
-                          { favorite: favoritesName, nonFavorite: nonFavoritesName },
-                          favorites,
-                          filter,
-                      )
-                    : Contracts.mapToGroups(options, filter),
-            [options, filter, favorize, favorites],
-        );
+        const grouped = React.useMemo(() => {
+            if (favorize && !grouping)
+                return Contracts.mapToFavoriteGroup(
+                    options,
+                    { favorite: favoritesName, nonFavorite: nonFavoritesName },
+                    filter,
+                );
+            if (!favorize) return Contracts.mapToGroups(options, filter);
+            return Contracts.mapToGroupsWithFavorites(
+                options,
+                { favorite: favoritesName, nonFavorite: nonFavoritesName },
+                filter,
+            );
+        }, [options, filter, favorize, favorites]);
 
         const selected = React.useMemo(
             () =>
                 grouped
-                    .reduce<Contracts.DropdownOptions[]>((prev, curr) => {
+                    .reduce<Contracts.DropdownOption[]>((prev, curr) => {
                         if (!curr.isParent) return prev.concat(curr.options);
-                        return curr.options.reduce<Contracts.DropdownOptions[]>((prv, crr) => {
+                        return curr.options.reduce<Contracts.DropdownOption[]>((prv, crr) => {
                             if (!crr.isParent) return prv.concat(crr.options);
                             return [];
                         }, []);
@@ -71,9 +75,9 @@ export const Grouped = React.forwardRef(
         React.useEffect(() => {
             onFilteredChange(
                 grouped
-                    .reduce<Contracts.DropdownOptions[]>((prev, curr) => {
+                    .reduce<Contracts.DropdownOption[]>((prev, curr) => {
                         if (!curr.isParent) return prev.concat(curr.options);
-                        return curr.options.reduce<Contracts.DropdownOptions[]>((prv, crr) => {
+                        return curr.options.reduce<Contracts.DropdownOption[]>((prv, crr) => {
                             if (!crr.isParent) return prv.concat(crr.options);
                             return [];
                         }, []);

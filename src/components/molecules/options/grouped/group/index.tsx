@@ -6,9 +6,9 @@ export interface GroupProps {
     id?: string;
     grouped: Contracts.OptionGroup[];
     onOptionClick: (option: string) => void;
-    selected?: Contracts.DropdownOptions;
+    selected?: Contracts.DropdownOption;
     favorize?: boolean;
-    onFavorize?: (option: Contracts.DropdownOptions) => void;
+    onFavorize?: (option: Contracts.DropdownOption) => void;
 }
 
 export const Group = ({ id, grouped, selected, favorize, onOptionClick, onFavorize }: GroupProps) => {

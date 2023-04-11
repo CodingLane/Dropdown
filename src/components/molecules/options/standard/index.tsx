@@ -4,7 +4,7 @@ import * as Atoms from 'components/atoms';
 
 export interface StandardProps<T extends string> {
     id?: string;
-    options: Contracts.DropdownOptions[];
+    options: Contracts.DropdownOption[];
     top?: number;
     onOptionClick: (option?: string) => void;
     filter?: string | null;

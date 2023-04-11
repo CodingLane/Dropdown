@@ -4,14 +4,14 @@ import * as Icons from 'react-feather';
 
 export interface OptionProps {
     id?: string;
-    selected?: Contracts.DropdownOptions;
-    option: Contracts.DropdownOptions;
+    selected?: Contracts.DropdownOption;
+    option: Contracts.DropdownOption;
     className?: string;
     onClick: (option: string) => void;
     icon?: JSX.Element;
     favorites?: boolean;
     isFavorite?: boolean;
-    onFavorize?: (option: Contracts.DropdownOptions) => void;
+    onFavorize?: (option: Contracts.DropdownOption) => void;
 }
 
 export const Option = ({
@@ -29,7 +29,7 @@ export const Option = ({
     const styling = React.useMemo(
         () =>
             'dropdown-option'
-                .concat(className ?? '')
+                .concat(className ? ` ${className}` : '')
                 .concat(option.label === selected?.label ? ' selected-dropdown' : ''),
         [selected, option],
     );

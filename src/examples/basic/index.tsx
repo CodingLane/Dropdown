@@ -1,7 +1,7 @@
 import React from 'react';
 import * as Dropdown from '../../export';
 
-const FIELDS: Dropdown.DropdownOptions[] = [
+const FIELDS: Dropdown.DropdownOption[] = [
     {
         label: 'Orange',
         value: 'ORANGE',
@@ -21,4 +21,18 @@ export const BasicDropdown = () => {
     const [current, setCurrent] = React.useState('ORANGE');
 
     return <Dropdown.Dropdown id={id} fields={FIELDS} value={current} onChange={setCurrent} />;
+};
+
+export const BasicWithoutPlaceholderDropdown = () => {
+    const id = React.useRef('testing').current;
+    const [current, setCurrent] = React.useState('');
+
+    return <Dropdown.Dropdown id={id} fields={FIELDS} value={current} onChange={setCurrent} />;
+};
+
+export const BasicWithPlaceholderDropdown = () => {
+    const id = React.useRef('testing').current;
+    const [current, setCurrent] = React.useState('');
+
+    return <Dropdown.Dropdown id={id} fields={FIELDS} value={current} onChange={setCurrent} placeholder='Choose...' />;
 };

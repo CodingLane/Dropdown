@@ -18,6 +18,11 @@
     user-select: none;
 }
 
+.dropdown-placeholder {
+    opacity: 0.4;
+    font-style: italic;
+}
+
 .dropdown-content {
     display: none;
     position: fixed;
@@ -60,7 +65,7 @@
 }
 
 .dropdown-option.group-option {
-    padding: 0.5em 0.8em;
+    padding: 0.5em 0.2em;
 }
 
 .dropdown-search {

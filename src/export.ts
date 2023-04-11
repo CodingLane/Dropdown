@@ -1,2 +1,2 @@
 export { Dropdown } from './hoc';
-export type { DropdownOptions, GroupedDropdownOptions, FavoriteLabels } from './contracts';
+export type { DropdownOption, GroupedDropdownOption, FavoriteLabels } from './contracts';
