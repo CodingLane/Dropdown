@@ -125,12 +125,12 @@ _For further information, go to the [Properties](#properties) section_
 | Type                     | PropertyName | PropertyType |
 | ------------------------ | ------------ | ------------ |
 | `DropdownOptions`        | `value`      | `string`     |
-| ` `                      | `label`      | `string`     |
-| ` `                      | `favorite`   | `boolean`    |
+|                          | `label`      | `string`     |
+|                          | `favorite`   | `boolean`    |
 | `GroupedDropdownOptions` | `value`      | `string`     |
-| ` `                      | `label`      | `string`     |
-| ` `                      | `favorite`   | `boolean`    |
-| ` `                      | `group`      | `string`     |
+|                          | `label`      | `string`     |
+|                          | `favorite`   | `boolean`    |
+|                          | `group`      | `string`     |
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
