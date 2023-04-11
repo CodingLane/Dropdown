@@ -9,16 +9,20 @@ export interface GroupProps {
     selected?: Contracts.DropdownOption;
     favorize?: boolean;
     onFavorize?: (option: Contracts.DropdownOption) => void;
+    'data-testid'?: string;
 }
 
-export const Group = ({ id, grouped, selected, favorize, onOptionClick, onFavorize }: GroupProps) => {
+export const Group = ({ id, grouped, selected, favorize, onOptionClick, onFavorize, ...props }: GroupProps) => {
     return (
         <>
             {grouped.map((group, index) => (
                 <div key={group.name.concat(`-${index}`)} className='dropdown-grouping'>
                     {!group.isParent ? (
                         <>
-                            <Atoms.Label label={group.name} />
+                            <Atoms.Label
+                                label={group.name}
+                                data-testid={props['data-testid']?.concat('-label').concat(group.name)}
+                            />
                             {group.options.map((option) => (
                                 <Atoms.Option
                                     key={option.value}
@@ -30,6 +34,7 @@ export const Group = ({ id, grouped, selected, favorize, onOptionClick, onFavori
                                     favorites={favorize}
                                     isFavorite={option.favorite}
                                     onFavorize={onFavorize}
+                                    data-testid={props['data-testid']?.concat('-group-option').concat(option.value)}
                                 />
                             ))}
                         </>
@@ -42,6 +47,7 @@ export const Group = ({ id, grouped, selected, favorize, onOptionClick, onFavori
                             favorize={favorize}
                             selected={selected}
                             key={group.name}
+                            data-testid={props['data-testid']?.concat(group.name)}
                         />
                     )}
                 </div>

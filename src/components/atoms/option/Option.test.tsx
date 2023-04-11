@@ -3,7 +3,7 @@ import * as Environment from '@testing-library/react';
 
 import * as SUT from './index';
 
-describe('Label tests', () => {
+describe('Option tests', () => {
     const OPTION_MOCK = 'Option';
     const OPTION_TEST_ID = 'Option_Testing';
     const OPTION_LABEL_MOCK = 'Option Label';
@@ -124,5 +124,34 @@ describe('Label tests', () => {
         await Environment.waitFor(() => Environment.fireEvent.click(element));
 
         expect(onClickMock).toBeCalledWith(OPTION_MOCK);
+    });
+
+    test('should have selected class name', async () => {
+        Environment.render(
+            <SUT.Option
+                option={{ label: OPTION_LABEL_MOCK, value: OPTION_MOCK }}
+                data-testid={OPTION_TEST_ID}
+                onClick={onClickMock}
+                selected={{ label: OPTION_LABEL_MOCK, value: OPTION_MOCK }}
+            />,
+        );
+
+        const element = await Environment.screen.findByTestId(OPTION_TEST_ID);
+
+        expect(element).toHaveClass('selected-dropdown');
+    });
+
+    test('should not have selected class name', async () => {
+        Environment.render(
+            <SUT.Option
+                option={{ label: OPTION_LABEL_MOCK, value: OPTION_MOCK }}
+                data-testid={OPTION_TEST_ID}
+                onClick={onClickMock}
+            />,
+        );
+
+        const element = await Environment.screen.findByTestId(OPTION_TEST_ID);
+
+        expect(element).not.toHaveClass('selected-dropdown');
     });
 });

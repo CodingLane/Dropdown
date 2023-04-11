@@ -10,11 +10,12 @@ export interface StandardProps<T extends string> {
     filter?: string | null;
     onFilteredChange: (options: string[]) => void;
     current?: T;
+    'data-testid'?: string;
 }
 
 export const Standard = React.forwardRef(
     <T extends string>(
-        { id, options, top, filter, onOptionClick, onFilteredChange, current }: StandardProps<T>,
+        { id, options, top, filter, onOptionClick, onFilteredChange, current, ...props }: StandardProps<T>,
         ref: React.ForwardedRef<HTMLDivElement>,
     ) => {
         const filtered = React.useMemo(
@@ -33,13 +34,14 @@ export const Standard = React.forwardRef(
 
         return (
             <div className='dropdown-content' ref={ref} style={{ top }}>
-                {filtered.map((option) => (
+                {filtered.map((option, index) => (
                     <Atoms.Option
                         key={option.value}
                         onClick={onOptionClick}
                         id={id?.concat('option').concat(option.value)}
                         option={option}
                         selected={selected}
+                        data-testid={`${props['data-testid']}-${index}`}
                     />
                 ))}
             </div>
