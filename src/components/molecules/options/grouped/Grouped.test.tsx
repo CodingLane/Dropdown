@@ -11,14 +11,8 @@ describe('Label tests', () => {
     const OPTION_ONE = 'OPTION_ONE';
     const OPTION_TWO = 'OPTION_TWO';
     const OPTION_THREE = 'OPTION_THREE';
-    const OPTION_FILTER = 'THREE';
-
-    const OPTION_GROUP_ONE = [
-        { label: OPTION_ONE, value: OPTION_ONE },
-        { label: OPTION_TWO, value: OPTION_TWO },
-    ];
-
-    const OPTION_GROUP_TWO = [{ label: OPTION_THREE, value: OPTION_THREE }];
+    const OPTION_FOUR_VALUE = 'OPTION_FOUR';
+    const OPTION_FOUR_LABEL = 'OPTION_FOUR_LABEL';
 
     const OPTIONS: Contracts.GroupedDropdownOption[] = [
         {
@@ -35,6 +29,11 @@ describe('Label tests', () => {
             group: GROUP_TWO_NAME,
             label: OPTION_THREE,
             value: OPTION_THREE,
+        },
+        {
+            group: GROUP_TWO_NAME,
+            label: OPTION_FOUR_LABEL,
+            value: OPTION_FOUR_VALUE,
         },
     ];
 
@@ -84,5 +83,41 @@ describe('Label tests', () => {
 
         expect(labels[0].children[1].children[0]).toHaveTextContent(OPTION_ONE);
         expect(labels[0].children[2].children[0]).toHaveTextContent(OPTION_TWO);
+    });
+
+    test('should have selected for current (=VALUE) with not matching label value pair', async () => {
+        Environment.render(
+            <SUT.Grouped
+                options={OPTIONS}
+                onFilteredChange={onFilteredChangeMock}
+                onOptionClick={onOptionClickMock}
+                data-testid={GROUP_TEST_ID}
+                current={OPTION_FOUR_VALUE}
+            />,
+        );
+
+        const element = await Environment.screen.findByTestId(
+            GROUP_TEST_ID.concat('-group-group-option').concat(OPTION_FOUR_VALUE),
+        );
+
+        expect(element).toHaveClass('selected-dropdown');
+    });
+
+    test('should not have selected for current (=LABEL) with not matching label value pair', async () => {
+        Environment.render(
+            <SUT.Grouped
+                options={OPTIONS}
+                onFilteredChange={onFilteredChangeMock}
+                onOptionClick={onOptionClickMock}
+                data-testid={GROUP_TEST_ID}
+                current={OPTION_FOUR_LABEL}
+            />,
+        );
+
+        const element = await Environment.screen.findByTestId(
+            GROUP_TEST_ID.concat('-group-group-option').concat(OPTION_FOUR_VALUE),
+        );
+
+        expect(element).not.toHaveClass('selected-dropdown');
     });
 });
