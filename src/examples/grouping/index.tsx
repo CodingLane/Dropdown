@@ -49,7 +49,7 @@ export const GroupedWithFavoritesDropdown = () => {
 
     const handleFavoriteAdd = (option: Dropdown.DropdownOption) => {
         setFields((prev) => {
-            let update = prev.find((field) => field.value === option.value);
+            const update = prev.find((field) => field.value === option.value);
             if (!update) return prev;
             update.favorite = !update.favorite;
             const updateIndex = prev.findIndex((field) => field.value === option.value);

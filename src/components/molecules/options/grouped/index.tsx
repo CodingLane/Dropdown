@@ -93,7 +93,7 @@ export const Grouped = React.forwardRef(
                             return [];
                         }, []);
                     }, [])
-                    .map((filter) => filter.value),
+                    .map((fltr) => fltr.value),
             );
         }, [grouped]);
 

@@ -33,7 +33,7 @@ export const Standard = React.forwardRef(
         }, [anchor]);
 
         React.useEffect(() => {
-            onFilteredChange(filtered.map((filter) => filter.value));
+            onFilteredChange(filtered.map((fltr) => fltr.value));
         }, [filtered]);
 
         const selected = React.useMemo(

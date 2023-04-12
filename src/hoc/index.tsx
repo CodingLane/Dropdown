@@ -135,14 +135,14 @@ export const Dropdown = <T extends string>({
     const setText = (ref: HTMLDivElement) => (text.current = ref);
 
     const [currentVisibleOptions, setCurrentVisibleOptions] = React.useState<string[]>([]);
-    const grouped = fields.some((field) => (field as Contracts.GroupedDropdownOption).group !== undefined);
-    const favorize = fields.some((field) => field.favorite !== undefined);
+    const grouped = fields.some((fld) => (fld as Contracts.GroupedDropdownOption).group !== undefined);
+    const favorize = fields.some((fld) => fld.favorite !== undefined);
 
     const [top, setTop] = React.useState<number>();
     const [bottom, setBottom] = React.useState<number>();
     const [active, setActive] = React.useState(false);
     const [search, setSearch] = React.useState<string | null>(null);
-    const field = React.useMemo(() => fields.find((field) => field.value === value)?.label, [value]);
+    const field = React.useMemo(() => fields.find((fld) => fld.value === value)?.label, [value]);
     const anchor = React.useMemo<Contracts.Anchor | undefined>(() => {
         if (!input.current) return;
         let at = top;

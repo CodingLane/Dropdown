@@ -121,9 +121,9 @@ describe('Dropdown', () => {
 
         await Environment.waitFor(() => UserEvent.paste(input, 'ONE'));
 
-        const option_two = Environment.screen.queryByText(FIELD_TWO);
+        const optionTwo = Environment.screen.queryByText(FIELD_TWO);
 
-        expect(option_two).toBeInTheDocument();
+        expect(optionTwo).toBeInTheDocument();
     });
 
     test('should filter options on search', async () => {
@@ -142,8 +142,8 @@ describe('Dropdown', () => {
 
         await Environment.waitFor(() => UserEvent.paste(input, 'ONE'));
 
-        const option_two = Environment.screen.queryByText(FIELD_TWO);
+        const optionTwo = Environment.screen.queryByText(FIELD_TWO);
 
-        expect(option_two).not.toBeInTheDocument();
+        expect(optionTwo).not.toBeInTheDocument();
     });
 });
