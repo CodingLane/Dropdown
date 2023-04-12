@@ -246,6 +246,7 @@ export const Dropdown = <T extends string>({
                         disabled={!searchable}
                         ref={setInput}
                         onKeyUp={enterSearch}
+                        data-testid={props['data-testid']?.concat('-input')}
                     />
                 </div>
                 <Icons.ChevronDown size={16} className='dropdown-searchicon' onClick={toggle} />
@@ -263,6 +264,7 @@ export const Dropdown = <T extends string>({
                     onFavorize={onFavorizeOption}
                     grouping={grouped}
                     favorize={favorize}
+                    {...props}
                 />
             ) : (
                 <Components.Standard
@@ -274,6 +276,7 @@ export const Dropdown = <T extends string>({
                     anchor={anchor}
                     ref={setMenu}
                     onFilteredChange={setCurrentVisibleOptions}
+                    {...props}
                 />
             )}
         </div>

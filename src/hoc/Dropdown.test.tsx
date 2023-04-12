@@ -105,4 +105,45 @@ describe('Dropdown', () => {
         await Environment.waitFor(() => UserEvent.click(select[0]));
         expect(onFocusMock).toBeCalledTimes(1);
     });
+
+    test('should not filter options on searchable false', async () => {
+        Environment.render(
+            <SUT.Dropdown
+                data-testid={TEST_ID}
+                value={FIELD_ONE}
+                fields={fields}
+                onChange={onChangeMock}
+                onFocus={onFocusMock}
+            />,
+        );
+
+        const input = await Environment.screen.findByTestId(TEST_ID.concat('-input'));
+
+        await Environment.waitFor(() => UserEvent.paste(input, 'ONE'));
+
+        const option_two = Environment.screen.queryByText(FIELD_TWO);
+
+        expect(option_two).toBeInTheDocument();
+    });
+
+    test('should filter options on search', async () => {
+        Environment.render(
+            <SUT.Dropdown
+                data-testid={TEST_ID}
+                value={FIELD_ONE}
+                fields={fields}
+                onChange={onChangeMock}
+                onFocus={onFocusMock}
+                searchable
+            />,
+        );
+
+        const input = await Environment.screen.findByTestId(TEST_ID.concat('-input'));
+
+        await Environment.waitFor(() => UserEvent.paste(input, 'ONE'));
+
+        const option_two = Environment.screen.queryByText(FIELD_TWO);
+
+        expect(option_two).not.toBeInTheDocument();
+    });
 });
