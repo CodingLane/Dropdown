@@ -37,7 +37,7 @@ export const Standard = React.forwardRef(
         }, [filtered]);
 
         const selected = React.useMemo(
-            () => filtered.filter((option) => option.label === current).pop(),
+            () => filtered.filter((option) => option.value === current).pop(),
             [options, current],
         );
 
