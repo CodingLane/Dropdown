@@ -2,7 +2,7 @@ import React from 'react';
 import * as Dropdown from '../../export';
 
 export const SearchableDropdown = () => {
-    const id = React.useRef('testing').current;
+    const id = React.useRef('testing-searchable').current;
     const [fields] = React.useState<Dropdown.DropdownOption[]>([
         {
             label: 'Orange',

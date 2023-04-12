@@ -2,7 +2,7 @@ import React from 'react';
 import * as Dropdown from '../../export';
 
 export const GroupedWithoutFavoritesDropdown = () => {
-    const id = React.useRef('testing').current;
+    const id = React.useRef('testing-groupwithoutfavorites').current;
     const [fields] = React.useState<Dropdown.GroupedDropdownOption[]>([
         {
             label: 'Orange',
@@ -26,7 +26,7 @@ export const GroupedWithoutFavoritesDropdown = () => {
 };
 
 export const GroupedWithFavoritesDropdown = () => {
-    const id = React.useRef('testing').current;
+    const id = React.useRef('testing-groupwithfavorites').current;
     const [fields, setFields] = React.useState<Dropdown.GroupedDropdownOption[]>([
         {
             label: 'Orange',

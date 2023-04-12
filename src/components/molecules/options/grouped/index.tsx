@@ -5,10 +5,11 @@ import { Group } from './group';
 const DEFAULT_FAVORITE = 'Favorite';
 const DEFAULT_NON_FAVORITE = 'Standard';
 
+const MAX_HEIGHT = 150;
+
 export interface GroupedProps<T extends string> {
     id?: string;
     options: Contracts.GroupedDropdownOption[];
-    top?: number;
     onOptionClick: (option?: string) => void;
     filter?: string | null;
     onFilteredChange: (options: string[]) => void;
@@ -18,6 +19,8 @@ export interface GroupedProps<T extends string> {
     nonFavoriteGroupName?: string;
     grouping?: boolean;
     favorize?: boolean;
+    anchor?: Contracts.Anchor;
+    'data-testid'?: string;
 }
 
 export const Grouped = React.forwardRef(
@@ -25,7 +28,6 @@ export const Grouped = React.forwardRef(
         {
             id,
             options,
-            top,
             onOptionClick,
             onFilteredChange,
             current,
@@ -35,12 +37,21 @@ export const Grouped = React.forwardRef(
             nonFavoriteGroupName,
             grouping,
             favorize,
+            anchor,
+            ...props
         }: GroupedProps<T>,
         ref: React.ForwardedRef<HTMLDivElement>,
     ) => {
         const favorites = options.filter((opt) => opt.favorite).length;
         const favoritesName = favoriteGroupName ?? DEFAULT_FAVORITE;
         const nonFavoritesName = nonFavoriteGroupName ?? DEFAULT_NON_FAVORITE;
+        const top = React.useMemo(() => {
+            if (anchor?.direction === 'DOWN') return anchor.at;
+        }, [anchor]);
+
+        const bottom = React.useMemo(() => {
+            if (anchor?.direction === 'UP') return anchor.at;
+        }, [anchor]);
 
         const grouped = React.useMemo(() => {
             if (favorize && !grouping)
@@ -87,7 +98,17 @@ export const Grouped = React.forwardRef(
         }, [grouped]);
 
         return (
-            <div className='dropdown-content dropdown-grouped' ref={ref} style={{ top }}>
+            <div
+                className='dropdown-content dropdown-grouped'
+                ref={ref}
+                style={{
+                    top,
+                    bottom,
+                    maxHeight: MAX_HEIGHT,
+                    marginTop: anchor?.direction === 'UP' ? '0px' : '25px',
+                }}
+                {...props}
+            >
                 <Group
                     onOptionClick={onOptionClick}
                     id={id?.concat('option')}
@@ -95,6 +116,7 @@ export const Grouped = React.forwardRef(
                     favorize={favorize}
                     onFavorize={onFavorize}
                     grouped={grouped}
+                    data-testid={props['data-testid']?.concat('-group')}
                 />
             </div>
         );

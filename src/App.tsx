@@ -19,12 +19,12 @@ function App() {
             <BasicDropdown />
             <br />
             <br />
-            <div className='example-label'>Basic Example</div>
+            <div className='example-label'>Basic Example with custom placeholder</div>
             <br />
             <BasicWithPlaceholderDropdown />
             <br />
             <br />
-            <div className='example-label'>Basic Example</div>
+            <div className='example-label'>Basic Example without custom placeholder</div>
             <br />
             <BasicWithoutPlaceholderDropdown />
             <br />

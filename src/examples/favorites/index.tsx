@@ -2,7 +2,7 @@ import React from 'react';
 import * as Dropdown from '../../export';
 
 export const FavoritesDropdown = () => {
-    const id = React.useRef('testing').current;
+    const id = React.useRef('testing-favorites').current;
     const [fields, setFields] = React.useState<Dropdown.DropdownOption[]>([
         {
             label: 'Orange',

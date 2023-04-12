@@ -2,26 +2,35 @@ import React from 'react';
 import * as Contracts from 'contracts';
 import * as Atoms from 'components/atoms';
 
+const MAX_HEIGHT = 150;
+
 export interface StandardProps<T extends string> {
     id?: string;
     options: Contracts.DropdownOption[];
-    top?: number;
     onOptionClick: (option?: string) => void;
     filter?: string | null;
     onFilteredChange: (options: string[]) => void;
     current?: T;
+    anchor?: Contracts.Anchor;
     'data-testid'?: string;
 }
 
 export const Standard = React.forwardRef(
     <T extends string>(
-        { id, options, top, filter, onOptionClick, onFilteredChange, current, ...props }: StandardProps<T>,
+        { id, options, filter, onOptionClick, onFilteredChange, current, anchor, ...props }: StandardProps<T>,
         ref: React.ForwardedRef<HTMLDivElement>,
     ) => {
         const filtered = React.useMemo(
             () => options.filter((option) => Contracts.filterOptions(option, filter)),
             [options, filter],
         );
+        const top = React.useMemo(() => {
+            if (anchor?.direction === 'DOWN') return anchor.at;
+        }, [anchor]);
+
+        const bottom = React.useMemo(() => {
+            if (anchor?.direction === 'UP') return anchor.at;
+        }, [anchor]);
 
         React.useEffect(() => {
             onFilteredChange(filtered.map((filter) => filter.value));
@@ -33,7 +42,11 @@ export const Standard = React.forwardRef(
         );
 
         return (
-            <div className='dropdown-content' ref={ref} style={{ top }}>
+            <div
+                className='dropdown-content'
+                ref={ref}
+                style={{ top, bottom, maxHeight: MAX_HEIGHT, marginTop: anchor?.direction === 'UP' ? '0px' : '25px' }}
+            >
                 {filtered.map((option, index) => (
                     <Atoms.Option
                         key={option.value}

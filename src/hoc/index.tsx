@@ -139,9 +139,22 @@ export const Dropdown = <T extends string>({
     const favorize = fields.some((field) => field.favorite !== undefined);
 
     const [top, setTop] = React.useState<number>();
+    const [bottom, setBottom] = React.useState<number>();
     const [active, setActive] = React.useState(false);
     const [search, setSearch] = React.useState<string | null>(null);
     const field = React.useMemo(() => fields.find((field) => field.value === value)?.label, [value]);
+    const anchor = React.useMemo<Contracts.Anchor | undefined>(() => {
+        if (!input.current) return;
+        let at = top;
+        if (!at) at = input.current?.getBoundingClientRect().top ?? 0;
+        const bttm = input.current.getBoundingClientRect().bottom;
+        if (bttm + 150 > document.body.clientHeight)
+            return {
+                at: document.body.clientHeight - (bottom ?? 0),
+                direction: 'UP',
+            };
+        return { at, direction: 'DOWN' };
+    }, [input.current, menu.current, top, bottom]);
 
     const handleOptionClick = (option?: string) => {
         onChange(option as T);
@@ -187,7 +200,10 @@ export const Dropdown = <T extends string>({
             if ((dropdown.current as any)?.contains(event.target)) return;
             setActive(false);
         };
-        const scrollListener = () => setTop(input.current?.getBoundingClientRect().top);
+        const scrollListener = () => {
+            setTop(input.current?.getBoundingClientRect().top ?? 0);
+            setBottom(input.current?.getBoundingClientRect().bottom ?? 0);
+        };
 
         document.addEventListener('click', clickListener);
         document.addEventListener('scroll', scrollListener);
@@ -241,7 +257,7 @@ export const Dropdown = <T extends string>({
                     onFilteredChange={setCurrentVisibleOptions}
                     options={fields as Contracts.GroupedDropdownOption[]}
                     current={value}
-                    top={top}
+                    anchor={anchor}
                     ref={setMenu}
                     filter={search}
                     onFavorize={onFavorizeOption}
@@ -255,7 +271,7 @@ export const Dropdown = <T extends string>({
                     options={fields}
                     current={value}
                     filter={search}
-                    top={top}
+                    anchor={anchor}
                     ref={setMenu}
                     onFilteredChange={setCurrentVisibleOptions}
                 />

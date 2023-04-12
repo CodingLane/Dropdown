@@ -16,7 +16,11 @@ export const Group = ({ id, grouped, selected, favorize, onOptionClick, onFavori
     return (
         <>
             {grouped.map((group, index) => (
-                <div key={group.name.concat(`-${index}`)} className='dropdown-grouping'>
+                <div
+                    key={group.name.concat(`-${index}`)}
+                    className='dropdown-grouping'
+                    data-testid={props['data-testid']?.concat(group.name)}
+                >
                     {!group.isParent ? (
                         <>
                             <Atoms.Label

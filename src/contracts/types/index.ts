@@ -37,3 +37,8 @@ export interface DropdownStyleSheet {
     fontSize?: string;
     fontFamily?: string;
 }
+
+export interface Anchor {
+    at: number;
+    direction: 'UP' | 'DOWN';
+}
