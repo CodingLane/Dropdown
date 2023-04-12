@@ -31,7 +31,7 @@ export const Option = ({
         () =>
             'dropdown-option'
                 .concat(className ? ` ${className}` : '')
-                .concat(option.label === selected?.label ? ' selected-dropdown' : ''),
+                .concat(option.value === selected?.value ? ' selected-dropdown' : ''),
         [selected, option],
     );
 
