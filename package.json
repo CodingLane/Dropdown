@@ -1,6 +1,6 @@
 {
     "name": "@codinglane/dropdown",
-    "version": "1.0.4",
+    "version": "1.0.6",
     "license": "MIT",
     "description": "An easy-to-use react dropdown",
     "author": "Coding Lane",
@@ -40,6 +40,7 @@
         "react-dom": "^18.2.0",
         "react-feather": "^2.0.10",
         "react-scripts": "5.0.1",
+        "tsc-hooks": "^1.1.2",
         "typescript": "^4.9.5",
         "web-vitals": "^2.1.4"
     },

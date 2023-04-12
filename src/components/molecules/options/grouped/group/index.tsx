@@ -1,6 +1,6 @@
 import React from 'react';
-import * as Atoms from 'components/atoms';
-import * as Contracts from 'contracts';
+import * as Atoms from '../../../../atoms';
+import * as Contracts from '../../../../../contracts';
 
 export interface GroupProps {
     id?: string;

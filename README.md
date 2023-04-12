@@ -141,12 +141,12 @@ _For further information, go to the [Properties](#properties) section_
 
 ### DropdownStyleSheet
 
-| Name              | Type     | Description                                                  |
-| ----------------- | -------- | ------------------------------------------------------------ |
-| `backgroundColor` | `string` |                                                              |
-| `color`           | `string` | The color is getting used for the text and the border bottom |
-| `fontSize`        | `string` |                                                              |
-| `fontFamily`      | `string` |                                                              |
+| Name                      | Type     | Description                                                  |
+| ------------------------- | -------- | ------------------------------------------------------------ |
+| `dropdownBackgroundColor` | `string` |                                                              |
+| `color`                   | `string` | The color is getting used for the text and the border bottom |
+| `dropdownFontSize`        | `string` |                                                              |
+| `dropdownFontFamily`      | `string` |                                                              |
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

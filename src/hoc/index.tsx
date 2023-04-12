@@ -2,8 +2,8 @@ import React from 'react';
 import * as Icons from 'react-feather';
 
 import './Dropdown.css';
-import * as Components from 'components';
-import * as Contracts from 'contracts';
+import * as Components from '../components';
+import * as Contracts from '../contracts';
 
 interface DropdownProps<T extends string> {
     /**

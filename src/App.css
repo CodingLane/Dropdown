@@ -1,6 +1,6 @@
 .example-label {
     font-size: 1.1em;
-    font-family: var(--fontFamily);
+    font-family: var(--dropdownFontFamily);
     font-weight: bold;
 }
 

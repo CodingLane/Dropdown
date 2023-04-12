@@ -1,6 +1,6 @@
 import React from 'react';
-import * as Contracts from 'contracts';
-import * as Atoms from 'components/atoms';
+import * as Contracts from '../../../../contracts';
+import * as Atoms from '../../../atoms';
 
 const MAX_HEIGHT = 150;
 

@@ -32,10 +32,10 @@ export interface FavoriteLabels {
 }
 
 export interface DropdownStyleSheet {
-    backgroundColor?: string;
+    dropdownBackgroundColor?: string;
     color?: string;
-    fontSize?: string;
-    fontFamily?: string;
+    dropdownFontSize?: string;
+    dropdownFontFamily?: string;
 }
 
 export interface Anchor {

@@ -1,5 +1,5 @@
 import React from 'react';
-import * as Contracts from 'contracts';
+import * as Contracts from '../../../contracts';
 import * as Icons from 'react-feather';
 
 export interface OptionProps {

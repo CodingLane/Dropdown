@@ -4,8 +4,8 @@
     border: none;
     border-bottom: 1px solid;
     border-bottom-color: inherit;
-    font-family: var(--fontFamily);
-    font-size: var(--fontSize);
+    font-family: var(--dropdownFontFamily);
+    font-size: var(--dropdownFontSize);
 }
 
 .customBase:focus {

@@ -1,4 +1,4 @@
-import * as Types from 'contracts/types';
+import * as Types from '../types';
 
 export const filterOptions = (field: Types.DropdownOption, filter?: string | null) => {
     if (!filter || filter === null) return true;
@@ -102,8 +102,8 @@ export const mapToFavoriteGroup = (
 
 export const setStyleSheet = (style?: Types.DropdownStyleSheet) => {
     const doc = document.documentElement.style;
-    doc.setProperty('--backgroundColor', style?.backgroundColor ?? 'white');
-    doc.setProperty('--primaryColor', style?.color ?? 'black');
-    doc.setProperty('--fontSize', style?.fontSize ?? '0.9em');
-    doc.setProperty('--fontFamily', style?.fontFamily ?? "'Courier New', Courier, monospace");
+    doc.setProperty('--dropdownBackgroundColor', style?.dropdownBackgroundColor ?? 'white');
+    doc.setProperty('--dropdownPrimaryColor', style?.color ?? 'black');
+    doc.setProperty('--dropdownFontSize', style?.dropdownFontSize ?? '0.9em');
+    doc.setProperty('--dropdownFontFamily', style?.dropdownFontFamily ?? "'Courier New', Courier, monospace");
 };

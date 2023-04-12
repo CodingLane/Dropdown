@@ -15,6 +15,7 @@
         "baseUrl": "src",
         "strict": true
     },
-    "include": ["src"],
+    "hooks": ["copy-files"],
+    "include": ["src", "src/**/*.css"],
     "exclude": ["node_modules", "**/__test__/*"]
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import * as Contracts from 'contracts';
+import * as Contracts from '../../../../contracts';
 import { Group } from './group';
 
 const DEFAULT_FAVORITE = 'Favorite';
