@@ -144,8 +144,6 @@ export const Dropdown = <T extends string>({
     const grouped = fields.some((fld) => (fld as Contracts.GroupedDropdownOption).group !== undefined);
     const favorize = fields.some((fld) => fld.favorite !== undefined);
 
-    const [top, setTopAnchor] = React.useState<number>();
-    const [bottom, setBottomAnchor] = React.useState<number>();
     const [active, setActive] = React.useState(false);
     const [search, setSearch] = React.useState<string | null>(null);
     const [height, setHeight] = React.useState(document.body.clientHeight);
@@ -163,18 +161,14 @@ export const Dropdown = <T extends string>({
     const anchor = React.useMemo<Contracts.Anchor | undefined>(() => {
         if (!active) return;
         if (!input.current) return;
-        const at = (top ?? input.current.getBoundingClientRect().bottom) + 5;
+        const at = input.current.getBoundingClientRect().bottom + 5;
         if (input.current.getBoundingClientRect().bottom + Contracts.MENU_MAX_HEIGHT + 10 > height)
             return {
-                at:
-                    height -
-                    (bottom ?? input.current.getBoundingClientRect().top) +
-                    5 -
-                    (isScrollable ? scrollBarHeight : 0),
+                at: height - input.current.getBoundingClientRect().top + 5 - (isScrollable ? scrollBarHeight : 0),
                 direction: 'UP',
             };
         return { at, direction: 'DOWN' };
-    }, [active, input.current, top, bottom, height, isScrollable, scrollBarHeight]);
+    }, [active, input.current, height, isScrollable, scrollBarHeight]);
 
     const handleOptionClick = (option?: string) => {
         onChange(option as T);
