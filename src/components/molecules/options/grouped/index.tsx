@@ -5,8 +5,6 @@ import { Group } from './group';
 const DEFAULT_FAVORITE = 'Favorite';
 const DEFAULT_NON_FAVORITE = 'Standard';
 
-const MAX_HEIGHT = 150;
-
 export interface GroupedProps<T extends string> {
     id?: string;
     options: Contracts.GroupedDropdownOption[];
@@ -73,10 +71,12 @@ export const Grouped = React.forwardRef(
                 grouped
                     .reduce<Contracts.DropdownOption[]>((prev, curr) => {
                         if (!curr.isParent) return prev.concat(curr.options);
-                        return curr.options.reduce<Contracts.DropdownOption[]>((prv, crr) => {
-                            if (!crr.isParent) return prv.concat(crr.options);
-                            return [];
-                        }, []);
+                        return prev.concat(
+                            curr.options.reduce<Contracts.DropdownOption[]>((prv, crr) => {
+                                if (!crr.isParent) return prv.concat(crr.options);
+                                return [];
+                            }, []),
+                        );
                     }, [])
                     .filter((option) => option.value === current)
                     .pop(),
@@ -104,8 +104,7 @@ export const Grouped = React.forwardRef(
                 style={{
                     top,
                     bottom,
-                    maxHeight: MAX_HEIGHT,
-                    marginTop: anchor?.direction === 'UP' ? '0px' : '25px',
+                    maxHeight: Contracts.MENU_MAX_HEIGHT,
                 }}
                 {...props}
             >

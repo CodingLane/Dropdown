@@ -133,28 +133,48 @@ export const Dropdown = <T extends string>({
     const setTextContainer = (ref: HTMLDivElement) => (textContainer.current = ref);
     const text = React.useRef<HTMLDivElement>();
     const setText = (ref: HTMLDivElement) => (text.current = ref);
+    const resizeObserver = React.useRef(
+        new ResizeObserver((entries) => {
+            setHeight(entries[0].target.clientHeight);
+            setIsScrollable(entries[0].target.clientWidth < entries[0].target.scrollWidth);
+        }),
+    ).current;
 
     const [currentVisibleOptions, setCurrentVisibleOptions] = React.useState<string[]>([]);
     const grouped = fields.some((fld) => (fld as Contracts.GroupedDropdownOption).group !== undefined);
     const favorize = fields.some((fld) => fld.favorite !== undefined);
 
-    const [top, setTop] = React.useState<number>();
-    const [bottom, setBottom] = React.useState<number>();
+    const [top, setTopAnchor] = React.useState<number>();
+    const [bottom, setBottomAnchor] = React.useState<number>();
     const [active, setActive] = React.useState(false);
     const [search, setSearch] = React.useState<string | null>(null);
+    const [height, setHeight] = React.useState(document.body.clientHeight);
+    const [scrollBarHeight, setScrollBarHeight] = React.useState(0);
+    const [isScrollable, setIsScrollable] = React.useState(false);
     const field = React.useMemo(() => fields.find((fld) => fld.value === value)?.label, [value]);
+
+    React.useEffect(() => {
+        setScrollBarHeight(Contracts.getScrollbarWidth());
+        resizeObserver.observe(document.body);
+
+        return () => resizeObserver.unobserve(document.body);
+    }, []);
+
     const anchor = React.useMemo<Contracts.Anchor | undefined>(() => {
         if (!input.current) return;
-        let at = top;
-        if (!at) at = input.current?.getBoundingClientRect().top ?? 0;
+        const at = (top ?? input.current.getBoundingClientRect().bottom) + 5;
         const bttm = input.current.getBoundingClientRect().bottom;
-        if (bttm + 150 > document.body.clientHeight)
+        if (bttm + Contracts.MENU_MAX_HEIGHT > height)
             return {
-                at: document.body.clientHeight - (bottom ?? bttm),
+                at:
+                    height -
+                    (bottom ?? input.current.getBoundingClientRect().top) +
+                    5 -
+                    (isScrollable ? scrollBarHeight : 0),
                 direction: 'UP',
             };
         return { at, direction: 'DOWN' };
-    }, [input.current, menu.current, top, bottom]);
+    }, [input.current, top, bottom, height, isScrollable, scrollBarHeight]);
 
     const handleOptionClick = (option?: string) => {
         onChange(option as T);
@@ -201,8 +221,8 @@ export const Dropdown = <T extends string>({
             setActive(false);
         };
         const scrollListener = () => {
-            setTop(input.current?.getBoundingClientRect().top ?? 0);
-            setBottom(input.current?.getBoundingClientRect().bottom ?? 0);
+            setTopAnchor(input.current?.getBoundingClientRect().bottom ?? 0);
+            setBottomAnchor(input.current?.getBoundingClientRect().top ?? 0);
         };
 
         document.addEventListener('click', clickListener);

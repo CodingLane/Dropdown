@@ -2,8 +2,6 @@ import React from 'react';
 import * as Contracts from '../../../../contracts';
 import * as Atoms from '../../../atoms';
 
-const MAX_HEIGHT = 150;
-
 export interface StandardProps<T extends string> {
     id?: string;
     options: Contracts.DropdownOption[];
@@ -42,11 +40,7 @@ export const Standard = React.forwardRef(
         );
 
         return (
-            <div
-                className='dropdown-content'
-                ref={ref}
-                style={{ top, bottom, maxHeight: MAX_HEIGHT, marginTop: anchor?.direction === 'UP' ? '0px' : '25px' }}
-            >
+            <div className='dropdown-content' ref={ref} style={{ top, bottom, maxHeight: Contracts.MENU_MAX_HEIGHT }}>
                 {filtered.map((option, index) => (
                     <Atoms.Option
                         key={option.value}
