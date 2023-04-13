@@ -151,7 +151,7 @@ export const Dropdown = <T extends string>({
     const [height, setHeight] = React.useState(document.body.clientHeight);
     const [scrollBarHeight, setScrollBarHeight] = React.useState(0);
     const [isScrollable, setIsScrollable] = React.useState(false);
-    const field = React.useMemo(() => fields.find((fld) => fld.value === value)?.label, [value]);
+    const field = React.useMemo(() => fields.find((fld) => fld.value === value)?.label, [value, fields]);
 
     React.useEffect(() => {
         setScrollBarHeight(Contracts.getScrollbarWidth());
