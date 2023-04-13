@@ -22,9 +22,6 @@ jobs:
                   node-version: ${{ matrix.node-version }}
                   cache: 'npm'
 
-            - name: Clean Up
-              run: npx rimraf lib
-
             - name: Run CI command
               run: npm ci
 
