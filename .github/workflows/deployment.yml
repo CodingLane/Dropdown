@@ -23,7 +23,7 @@ jobs:
                   cache: 'npm'
 
             - name: Clean Up
-              run: rimraf lib
+              run: npx rimraf lib
 
             - name: Run CI command
               run: npm ci
