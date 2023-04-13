@@ -16,6 +16,6 @@
         "strict": true
     },
     "hooks": ["copy-files"],
-    "exclude": ["node_modules", "**/__test__/*"],
+    "exclude": ["node_modules", "**/__test__/*", "./lib/**/*"],
     "include": ["src/", "src/**/*.css"]
 }
