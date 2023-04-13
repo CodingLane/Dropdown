@@ -4,6 +4,20 @@ import UserEvent from '@testing-library/user-event';
 
 import * as SUT from './index';
 
+class ResizeObserver {
+    observe() {
+        // do nothing
+    }
+    unobserve() {
+        // do nothing
+    }
+    disconnect() {
+        // do nothing
+    }
+}
+
+window.ResizeObserver = ResizeObserver;
+
 describe('Dropdown', () => {
     const TEST_ID = 'TESTING_DROPDOWN';
     const FIELD_ONE = 'ONE';
