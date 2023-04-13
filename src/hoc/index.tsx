@@ -161,10 +161,10 @@ export const Dropdown = <T extends string>({
     }, []);
 
     const anchor = React.useMemo<Contracts.Anchor | undefined>(() => {
+        if (!active) return;
         if (!input.current) return;
         const at = (top ?? input.current.getBoundingClientRect().bottom) + 5;
-        const bttm = input.current.getBoundingClientRect().bottom;
-        if (bttm + Contracts.MENU_MAX_HEIGHT > height)
+        if (input.current.getBoundingClientRect().bottom + Contracts.MENU_MAX_HEIGHT + 10 > height)
             return {
                 at:
                     height -
@@ -174,7 +174,7 @@ export const Dropdown = <T extends string>({
                 direction: 'UP',
             };
         return { at, direction: 'DOWN' };
-    }, [input.current, top, bottom, height, isScrollable, scrollBarHeight]);
+    }, [active, input.current, top, bottom, height, isScrollable, scrollBarHeight]);
 
     const handleOptionClick = (option?: string) => {
         onChange(option as T);
@@ -220,16 +220,16 @@ export const Dropdown = <T extends string>({
             if ((dropdown.current as any)?.contains(event.target)) return;
             setActive(false);
         };
-        const scrollListener = () => {
-            setTopAnchor(input.current?.getBoundingClientRect().bottom ?? 0);
-            setBottomAnchor(input.current?.getBoundingClientRect().top ?? 0);
+        const scrollListener = (event: Event) => {
+            if ((menu.current as any)?.contains(event.target)) return;
+            setActive(false);
         };
 
         document.addEventListener('click', clickListener);
-        document.addEventListener('scroll', scrollListener);
+        document.addEventListener('scroll', scrollListener, true);
         return () => {
             document.removeEventListener('click', clickListener);
-            document.removeEventListener('scroll', scrollListener);
+            document.removeEventListener('scroll', scrollListener, true);
         };
     }, []);
 
