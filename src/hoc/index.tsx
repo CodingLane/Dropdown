@@ -150,7 +150,7 @@ export const Dropdown = <T extends string>({
         const bttm = input.current.getBoundingClientRect().bottom;
         if (bttm + 150 > document.body.clientHeight)
             return {
-                at: document.body.clientHeight - (bottom ?? 0),
+                at: document.body.clientHeight - (bottom ?? bttm),
                 direction: 'UP',
             };
         return { at, direction: 'DOWN' };

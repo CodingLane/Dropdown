@@ -1,28 +1,21 @@
 {
-  "compilerOptions": {
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "target": "es5",
-    "module": "esnext",
-    "declaration": true,
-    "outDir": "./lib",
-    "jsx": "react-jsx",
-    "baseUrl": "src",
-    "strict": true
-  },
-  "hooks": [
-    "copy-files"
-  ],
-  "exclude": [
-    "**/__test__/*"
-  ]
+    "compilerOptions": {
+        "lib": ["dom", "dom.iterable", "esnext"],
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "forceConsistentCasingInFileNames": true,
+        "noFallthroughCasesInSwitch": true,
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "target": "es5",
+        "module": "esnext",
+        "declaration": true,
+        "outDir": "./lib",
+        "jsx": "react-jsx",
+        "baseUrl": "src",
+        "strict": true
+    },
+    "hooks": ["copy-files"],
+    "exclude": ["node_modules", "**/__test__/*"],
+    "include": ["src/", "src/**/*.css"]
 }
